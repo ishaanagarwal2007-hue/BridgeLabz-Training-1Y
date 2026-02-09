@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Bhavo ji ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Georgia', serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+  overflow: hidden;
+  color: white;
+}
+
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  border-radius: 30px;
+  padding: 50px;
+  max-width: 900px;
+  box-shadow: 0 0 65px rgba(255,182,193,0.95);
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 25px;
+}
+
+p {
+  font-size: 1.45rem;
+  line-height: 1.9;
+}
+
+input {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+
+button {
+  margin-top: 30px;
+  padding: 13px 38px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff6f91, #ff9aa2);
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.hidden {
+  display: none;
+}
+
+/* slideshow */
+.slideshow img {
+  width: 520px;
+  max-width: 90%;
+  border-radius: 25px;
+  box-shadow: 0 0 45px rgba(255,255,255,0.9);
+  animation: fade 2s;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* final slide */
+.final {
+  font-size: 3.2rem;
+  line-height: 1.6;
+  color: #fff5fa;
+  text-shadow: 0 0 20px rgba(255,255,255,0.8);
+}
+
+/* floating hearts */
+.heart {
+  position: absolute;
+  bottom: -30px;
+  animation: floatUp 8s linear infinite;
+  color: rgba(255,255,255,0.95);
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<div class="center" id="questionScreen">
+  <div class="card">
+    <h1>Kaun? 🤔</h1>
+    <p>Mujhe pehchaana? 💭<br>Dil se jawaab dena ❤️</p>
+    <input type="text" id="answer" placeholder="yahan likho..." />
+    <br>
+    <button onclick="checkAnswer()">Submit 💌</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="center hidden" id="birthdayScreen">
+  <div class="card">
+    <h1>Happy Birthday Bhavo ji 🎂❤️</h1>
+    <p>
+      Meri Laado 💕<br><br>
+      Aaj ka din tumhari muskaan ke naam 😊  
+      tumhari khushi ke naam 🌸  
+      aur tumhare sapnon ke naam ✨  
+      <br><br>
+      Tum meri zindagi ka sabse khoobsurat ehsaas ho 🫶  
+      aur main hamesha tumhare saath hoon ♾️❤️
+    </p>
+    <button onclick="startSlideshow()">Aage dekho 👀💖</button>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="center hidden" id="slideshowScreen">
+  <div class="card slideshow">
+    <h1>Humari Yaadein 📸❤️</h1>
+    <img id="slide" src="photo1.jpg">
+    <p>Har tasveer mein sirf tum ho 💞</p>
+  </div>
+</div>
+
+<!-- SCREEN 4 (FINAL) -->
+<div class="center hidden" id="finalScreen">
+  <div class="card">
+    <div class="final">
+      I Love You Laado ❤️♾️<br>
+      Forever & Always 🫶✨
+    </div>
+  </div>
+</div>
+
+<!-- ROMANTIC SONG -->
+<audio id="music" loop>
+  <!-- Romantic instrumental (safe autoplay after click) -->
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"];
+let index = 0;
+let slideCount = 0;
+
+function checkAnswer() {
+  const ans = document.getElementById("answer").value.toLowerCase();
+  if (ans.includes("pyaar") || ans.includes("pyar")) {
+    document.getElementById("questionScreen").style.display = "none";
+    document.getElementById("birthdayScreen").classList.remove("hidden");
+    document.getElementById("music").play();
+  } else {
+    alert("Hint: Dil se socho ❤️😉");
+  }
+}
+
+function startSlideshow() {
+  document.getElementById("birthdayScreen").style.display = "none";
+  document.getElementById("slideshowScreen").classList.remove("hidden");
+
+  const interval = setInterval(() => {
+    index = (index + 1) % photos.length;
+    document.getElementById("slide").src = photos[index];
+    slideCount++;
+
+    if (slideCount === photos.length + 1) {
+      clearInterval(interval);
+      document.getElementById("slideshowScreen").style.display = "none";
+      document.getElementById("finalScreen").classList.remove("hidden");
+    }
+  }, 3000);
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 30 + 18) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 350);
+</script>
+
+</body>
+</html>

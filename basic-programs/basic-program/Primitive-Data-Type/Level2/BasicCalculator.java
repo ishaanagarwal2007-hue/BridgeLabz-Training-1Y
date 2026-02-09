@@ -22,4 +22,4 @@ public class BasicCalculator {
 
         sc.close();
     }
-}
+}   
